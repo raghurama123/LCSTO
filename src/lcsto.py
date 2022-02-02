@@ -1,16 +1,27 @@
+import numpy as np
+from numpy import linalg as npla
+from scipy import optimize
+
+def eigen(A):
+    eigenValues, eigenVectors = npla.eig(A)
+    idx = np.argsort(eigenValues)
+    eigenValues = eigenValues[idx]
+    eigenVectors = eigenVectors[:,idx]
+    return (eigenValues, eigenVectors)
+
 def int_S(ai,aj):
     int_S = 8 * (ai * aj)**(3.0/2.0) / (ai + aj)**3
     return int_S
 
 def int_T(ai,aj,diag):
-    if (diag):
+    if diag == 'true':
         int_T = ai**2 - ai**2 / 2.0
     else:
         int_T = 4 * aj * ai**(3.0/2.0) * aj**(3.0/2.0) / (ai + aj)**2  - aj**2 * int_S(ai, aj) / 2.0
     return int_T
 
 def int_Vne(ai, aj, Z, diag):
-    if (diag):
+    if diag == 'true':
         int_Vne = -Z * ai
     else:
         int_Vne = -Z * 4 * ai**(3.0/2.0) * aj**(3.0/2.0) / (ai + aj)**2
@@ -21,3 +32,134 @@ def int_Vee(ai, aj, ak, al):
             (ak+al)**(-2) * (ai+aj+ak+al)**(-3) * (2 + 6 * (ak+al)/(ai+aj+ak+al))
   int_Vee = int_Vee * 16 * (ai*aj*ak*al)**(3.0/2.0)
   return int_Vee
+
+def energy(param):
+
+  zeta=np.zeros(N_zeta)
+  S=np.zeros([N_zeta,N_zeta])
+  T=np.zeros([N_zeta,N_zeta])
+  Vne=np.zeros([N_zeta,N_zeta])
+  Vee=np.zeros([N_zeta,N_zeta,N_zeta,N_zeta])
+  occ=np.zeros([N_zeta,N_zeta])
+  SMH=np.zeros([N_zeta,N_zeta])
+  C=np.zeros([N_zeta,N_zeta])
+  P=np.zeros([N_zeta,N_zeta])
+  F=np.zeros([N_zeta,N_zeta])
+  G=np.zeros([N_zeta,N_zeta])
+  H=np.zeros([N_zeta,N_zeta])
+
+  alpha=np.abs(param[0])
+  beta=np.abs(param[1])
+  for i_zeta in range(N_zeta):
+    zeta[i_zeta] = alpha * beta**(i_zeta+1)
+
+  for i in range(N_zeta):
+    S[i,i] = int_S(zeta[i], zeta[i])
+    T[i,i] = int_T(zeta[i], zeta[i], 'true')
+    Vne[i,i] = int_Vne(zeta[i], zeta[i], Z, 'true')
+    for j in range(i+1,N_zeta):
+      S[i,j] = int_S(zeta[i], zeta[j])
+      S[j,i] = S[i,j]
+      T[i,j] = int_T(zeta[i], zeta[j], 'false')
+      T[j,i] = T[i,j]
+      Vne[i,j] = int_Vne(zeta[i], zeta[j], Z, 'false')
+      Vne[j,i] = Vne[i,j]
+
+
+  H = T + Vne
+
+  for i in range(N_zeta):
+    for j in range(N_zeta):
+      for k in range(N_zeta):
+        for l in range(N_zeta):
+          Vee[i,j,k,l] = int_Vee(zeta[i], zeta[j], zeta[k], zeta[l])
+
+  occ[0,0]=2
+
+  E,V=eigen(S)
+
+  for i in range(N_zeta):
+    SMH[i,i]=1/np.sqrt(E[i])
+
+  X = np.matmul(V, np.matmul(SMH, np.transpose(V)))
+
+  P = np.matmul(C, np.matmul(occ, np.transpose(C)))
+
+  eold = 99999
+  d_energy = eold
+
+  i_scf=0
+
+  while d_energy > e_scf_thresh:
+
+    for i in range(N_zeta):
+      for j in range(N_zeta):
+        G[i,j] = 0
+        for k in range(N_zeta):
+          for l in range(N_zeta):
+            G[i,j] = G[i,j] + P[k,l] * ( Vee[i,j,l,k] - Vee[i,k,l,j]/2.0 )
+
+    F = H + G
+
+    F1 = np.matmul(X, np.matmul(F, np.transpose(X)))
+
+    E,V=eigen(F1)
+
+    C = np.matmul(X, V)
+    P = np.matmul(C, np.matmul(occ, np.transpose(C)))
+
+    enew = 0.0
+    for i in range(N_zeta):
+      for j in range(N_zeta):
+        enew = enew + P[i,j] * ( F[j,i] + H[j,i] ) / 2.0
+
+    i_scf = i_scf + 1
+
+    d_energy = np.abs(enew - eold)
+
+    eold = enew
+
+  return  enew
+
+#=== parameters
+Z=2.0        # Nuclear charge
+alpha=1.0    # 
+beta=1.5     # alpha, beta are parameters to generate the STO exponents
+
+param=np.array([alpha,beta])
+
+convergence_options={'ftol': 1e-15, \
+                             'gtol': 1e-12, \
+                             'maxfun': 15000, \
+                             'maxiter': 15000}
+
+
+for i_zeta in range(1,9):
+
+  N_zeta = i_zeta
+
+  e_scf_thresh = 1e-14
+
+  result=optimize.minimize(energy,param,method='Nelder-Mead')
+  param=result.x
+  optimize.minimize(energy,param,method='L-BFGS-B')
+
+  param=result.x
+  alpha=np.abs(param[0])
+  beta=np.abs(param[1])
+  zeta=np.zeros(N_zeta)
+  for i_zeta in range(i_zeta):
+    zeta[i_zeta] = alpha * beta**(i_zeta+1)
+
+  escf=result.fun
+
+  print('\nNo. of Slater-type basis functions:',i_zeta+1)
+
+  print('Optimal Exponents generated using alpha =',alpha,' and beta=',beta)
+  for i_zeta in range(N_zeta):
+    print(zeta[i_zeta])
+
+  print('Total SCF energy in hartree:',escf,'\n')
+
+
+
