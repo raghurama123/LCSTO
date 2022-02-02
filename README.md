@@ -16,7 +16,7 @@ The atomic orbitals are selected as even-tempered basis functions which enables 
   https://doi.org/10.1063/1.1679962
 ```
 
-The purpose of sharing the code and the following results is to demonstrate, how with a simple 'toy' program, historical quantum chemistry results may be reproduced. 
+The purpose of sharing the code and the following results is to demonstrate, how with a simple 'toy' program, historical results in quantum chemistry may be reproduced. 
 
 # Results
 ```
