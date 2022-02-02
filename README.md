@@ -8,7 +8,7 @@ A code to perform Roothan-Hartree-Fock calculation of 2-electron atoms using Lin
   https://doi.org/10.1016/j.cplett.2019.02.004
 ```
 
-The atomic orbitals are selected as even-temperted basis functions which enables one to reproduce Raffenetti's results discussed in 
+The atomic orbitals are selected as even-tempered basis functions which enables one to reproduce Raffenetti's results discussed in 
 ```
   Even‐tempered atomic orbitals. II. Atomic SCF wavefunctions in terms of even‐tempered exponential bases
   Richard C. Raffenetti
