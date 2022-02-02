@@ -1,6 +1,6 @@
 # LCSTO
 
-Program used to perform Roothan-Hartree-Fock calculation of 2-electron atoms using linear combination of Slater-type orbitals for the work
+A code to perform Roothan-Hartree-Fock calculation of 2-electron atoms using linear combination of Slater-type orbitals. The code was for the work
 ```
   Exact separation of radial and angular correlation energies in two-electron atoms
   Anjana R.Kammath, Raghunathan Ramakrishnan
@@ -8,7 +8,7 @@ Program used to perform Roothan-Hartree-Fock calculation of 2-electron atoms usi
   https://doi.org/10.1016/j.cplett.2019.02.004
 ```
 
-The atomic orbitals are selected as even-temperted basis functions which enables one to reproduce the Raffenetti's results discussed in 
+The atomic orbitals are selected as even-temperted basis functions which enables one to reproduce Raffenetti's results discussed in 
 ```
   Even‐tempered atomic orbitals. II. Atomic SCF wavefunctions in terms of even‐tempered exponential bases
   Richard C. Raffenetti
@@ -16,7 +16,7 @@ The atomic orbitals are selected as even-temperted basis functions which enables
   https://doi.org/10.1063/1.1679962
 ```
 
-The purpose of sharing the code and the following results is to demonstrate how with a simple 'toy' program, quantum chemistry results of historic importance may be reproduced. 
+The purpose of sharing the code and the following results is to demonstrate, how with a simple 'toy' program, quantum chemistry results of historic importance may be reproduced. 
 
 # Results
 ```
