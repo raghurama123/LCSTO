@@ -131,7 +131,7 @@ param=np.array([alpha,beta])
 convergence_options={'ftol': 1e-14, 'maxiter': 15000}
 
 
-for i_zeta in range(1,13):
+for i_zeta in range(1,9):
 
   N_zeta = i_zeta
 
