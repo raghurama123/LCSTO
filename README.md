@@ -16,21 +16,23 @@ The atomic orbitals are selected as even-temperted basis functions which enables
   https://doi.org/10.1063/1.1679962
 ```
 
+The purpose of sharing the code and the following results is to demonstrate how with a simple 'toy' program, quantum chemistry results of historic importance may be reproduced. 
+
 # Results
 ```
 =======================================================================
 No. of basis functions                 SCF energy (hartree)
 -----------------------------------------------------------------------
                                This code               Rafenetti's work
- 1                        -2.847 656 249 9999 
- 2                        -2.861 672 626 1654
- 3                        -2.861 676 069 7681        -2.861 679 036 686 
- 4                        -2.861 679 875 4451        -2.861 679 875 316 
- 5                        -2.861 679 987 4587        -2.861 679 986 833 
- 6                        -2.861 679 993 3366        -2.861 679 987 495 
- 7                        -2.861 679 995 5799        -2.861 679 994 968
- 8                        -2.861 679 995 6065        -2.861 679 995 610 
-12                                                   -2.861 679 995 615 
+ 1                         -2.847 656 250 000 
+ 2                         -2.861 672 626 180
+ 3                         -2.861 676 069 769        -2.861 679 036 686 
+ 4                         -2.861 679 875 445        -2.861 679 875 316 
+ 5                         -2.861 679 987 459        -2.861 679 986 833 
+ 6                         -2.861 679 993 337        -2.861 679 987 495 
+ 7                         -2.861 679 995 580        -2.861 679 994 968 
+ 8                         -2.861 679 995 606        -2.861 679 995 610 
+12                                                   -2.861 679 995 615
 =======================================================================
 ```
 
@@ -42,77 +44,77 @@ No. of basis functions                 SCF energy (hartree)
 
 ```
 No. of Slater-type basis functions: 1
-Optimal Exponents generated using alpha = 1.0567430313584043  and beta= 1.5968878373989417
-1.6875000940323244
-Total SCF energy in hartree: -2.8476562499999925 
+Optimal Exponents generated using alpha = 1.0567284642370978  and beta= 1.5969097269003423
+1.687499963232682
+Total SCF energy in hartree: -2.8476562499999982 
 
 
 No. of Slater-type basis functions: 2
-Optimal Exponents generated using alpha = 0.7264139917022606  and beta= 2.0001879648028296
-1.4529645236672442
-2.906202153524698
-Total SCF energy in hartree: -2.8616726261654484 
+Optimal Exponents generated using alpha = 0.7264028021946469  and beta= 2.0002189508643307
+1.4529646509106866
+2.906247429687532
+Total SCF energy in hartree: -2.8616726261795122 
 
 
 No. of Slater-type basis functions: 3
-Optimal Exponents generated using alpha = 0.749928648239762  and beta= 1.9223677622417956
-1.441638657357686
-2.7713596797059616
-5.327572505843489
-Total SCF energy in hartree: -2.861676069768106 
+Optimal Exponents generated using alpha = 0.7499408016830662  and beta= 1.9223281763174245
+1.441632333645436
+2.7712904548568638
+5.3273297261308805
+Total SCF energy in hartree: -2.861676069768634 
 
 
 No. of Slater-type basis functions: 4
-Optimal Exponents generated using alpha = 0.8539215361563312  and beta= 1.660915600128609
-1.4182916006878363
-2.3556626451138034
-3.9125568359097387
-6.498426685152316
-Total SCF energy in hartree: -2.8616798754451995 
+Optimal Exponents generated using alpha = 0.8539359715379213  and beta= 1.6608861223138915
+1.4182904044719638
+2.3556188501984408
+3.9124146577555963
+6.498075209803723
+Total SCF energy in hartree: -2.8616798754451898 
 
 
 No. of Slater-type basis functions: 5
-Optimal Exponents generated using alpha = 0.9727669770197445  and beta= 1.4387371008406045
-1.3995559403108662
-2.0135930560271014
-2.897031035701205
-4.168066033350005
-5.996751240934184
-Total SCF energy in hartree: -2.8616799874587944 
+Optimal Exponents generated using alpha = 0.9727660298774556  and beta= 1.4387381556433136
+1.399555603698359
+2.0135940479852414
+2.8970345868126404
+4.168074198265708
+5.9967673845972875
+Total SCF energy in hartree: -2.8616799874588192 
 
 
 No. of Slater-type basis functions: 6
-Optimal Exponents generated using alpha = 1.0127793899328648  and beta= 1.37650670990211
-1.394097625893154
-1.918984736300528
-2.641495365717408
-3.6360360950853394
-5.005028082331236
-6.889454738577437
-Total SCF energy in hartree: -2.861679993336619 
+Optimal Exponents generated using alpha = 1.0126741703805924  and beta= 1.3766453637479117
+1.3940932016417054
+1.9191719426725362
+2.64201915711522
+3.637123423575833
+5.007029098444603
+6.892903394524648
+Total SCF energy in hartree: -2.8616799933368138 
 
 
 No. of Slater-type basis functions: 7
-Optimal Exponents generated using alpha = 1.0553277042673397  and beta= 1.3126512487351576
-1.3852772288313306
-1.8183858842698246
-2.386906501669169
-3.1331758000301013
-4.112767126416289
-5.398628904247247
-7.086516972617865
-Total SCF energy in hartree: -2.8616799955799266 
+Optimal Exponents generated using alpha = 1.0544538494759563  and beta= 1.3138750250065923
+1.3854205778485196
+1.8202694963653712
+2.3916066300557888
+3.142272220870482
+4.128552992773725
+5.424402666621619
+7.126987189253304
+Total SCF energy in hartree: -2.8616799955802787 
 
 
 No. of Slater-type basis functions: 8
-Optimal Exponents generated using alpha = 1.0793557727796261  and beta= 1.2808563212659374
-1.382499664459665
-1.7707834343711994
-2.2681191555073568
-2.9051347577159574
-3.7210602185498716
-4.766143502740814
-6.104745033546148
-7.8193012659344205
-Total SCF energy in hartree: -2.8616799956065635
+Optimal Exponents generated using alpha = 1.0766848654894963  and beta= 1.2843388236510225
+1.382828173585639
+1.7760199097744716
+2.28101132170054
+2.9295913976475356
+3.7625879694327904
+4.8324378065447995
+6.206487487824474
+7.971232839117276
+Total SCF energy in hartree: -2.861679995605802
 ```
