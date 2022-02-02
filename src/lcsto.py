@@ -128,21 +128,17 @@ beta=1.5     # alpha, beta are parameters to generate the STO exponents
 
 param=np.array([alpha,beta])
 
-convergence_options={'ftol': 1e-15, \
-                             'gtol': 1e-12, \
-                             'maxfun': 15000, \
-                             'maxiter': 15000}
+convergence_options={'ftol': 1e-14, 'maxiter': 15000}
 
 
-for i_zeta in range(1,9):
+for i_zeta in range(1,13):
 
   N_zeta = i_zeta
 
   e_scf_thresh = 1e-14
 
-  result=optimize.minimize(energy,param,method='Nelder-Mead')
+  result=optimize.minimize(energy,param,method='Nelder-Mead',options=convergence_options)
   param=result.x
-  optimize.minimize(energy,param,method='L-BFGS-B')
 
   param=result.x
   alpha=np.abs(param[0])
