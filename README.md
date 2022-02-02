@@ -1,6 +1,6 @@
 # LCSTO
 
-A code to perform Roothan-Hartree-Fock calculation of 2-electron atoms using linear combination of Slater-type orbitals. The code was for the work
+A code to perform Roothan-Hartree-Fock calculation of 2-electron atoms using Linear Combination of Slater-Type Orbitals. The code was for the work
 ```
   Exact separation of radial and angular correlation energies in two-electron atoms
   Anjana R.Kammath, Raghunathan Ramakrishnan
