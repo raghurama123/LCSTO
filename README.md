@@ -20,6 +20,10 @@ The atomic orbitals are selected as even-temperted basis functions which enables
 # Results
 
 ```
+> python3 lcsto.py 
+```
+
+```
 No. of Slater-type basis functions: 1
 Optimal Exponents generated using alpha = 1.0567430313584043  and beta= 1.5968878373989417
 1.6875000940323244
