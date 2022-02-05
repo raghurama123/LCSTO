@@ -53,7 +53,7 @@ def energy(param):
   for i_zeta in range(N_zeta):
     zeta[i_zeta] = alpha * beta**(i_zeta+1)
 
-  for i in range(N_zeta):
+  for i in range(0,N_zeta):
     S[i,i] = int_S(zeta[i], zeta[i])
     T[i,i] = int_T(zeta[i], zeta[i], 'true')
     Vne[i,i] = int_Vne(zeta[i], zeta[i], Z, 'true')
@@ -65,16 +65,14 @@ def energy(param):
       Vne[i,j] = int_Vne(zeta[i], zeta[j], Z, 'false')
       Vne[j,i] = Vne[i,j]
 
+      H[i,j] = T[i,j] + Vne[i,j]
+      H[j,i] = H[i,j]
 
-  H = T + Vne
-
-  for i in range(N_zeta):
-    for j in range(N_zeta):
-      for k in range(N_zeta):
-        for l in range(N_zeta):
+  for i in range(0,N_zeta):
+    for j in range(0,N_zeta):
+      for k in range(0,N_zeta):
+        for l in range(0,N_zeta):
           Vee[i,j,k,l] = int_Vee(zeta[i], zeta[j], zeta[k], zeta[l])
-
-  occ[0,0]=2
 
   E,V=eigen(S)
 
@@ -83,6 +81,7 @@ def energy(param):
 
   X = np.matmul(V, np.matmul(SMH, np.transpose(V)))
 
+  occ[0,0]=2
   P = np.matmul(C, np.matmul(occ, np.transpose(C)))
 
   eold = 99999
@@ -92,14 +91,15 @@ def energy(param):
 
   while d_energy > e_scf_thresh:
 
-    for i in range(N_zeta):
-      for j in range(N_zeta):
-        G[i,j] = 0
+    i_scf = i_scf + 1
+
+    for i in range(0,N_zeta):
+      for j in range(i,N_zeta):
+        F[i,j] = H[i,j]
         for k in range(N_zeta):
           for l in range(N_zeta):
-            G[i,j] = G[i,j] + P[k,l] * ( Vee[i,j,l,k] - Vee[i,k,l,j]/2.0 )
-
-    F = H + G
+            F[i,j] = F[i,j] + P[k,l] * ( Vee[i,j,l,k] - Vee[i,k,l,j]/2.0 )
+        F[j,i] = F[i,j]
 
     F1 = np.matmul(X, np.matmul(F, np.transpose(X)))
 
@@ -108,12 +108,7 @@ def energy(param):
     C = np.matmul(X, V)
     P = np.matmul(C, np.matmul(occ, np.transpose(C)))
 
-    enew = 0.0
-    for i in range(N_zeta):
-      for j in range(N_zeta):
-        enew = enew + P[i,j] * ( F[j,i] + H[j,i] ) / 2.0
-
-    i_scf = i_scf + 1
+    enew = np.trace(np.matmul(P,(F+H)/2))
 
     d_energy = np.abs(enew - eold)
 
@@ -130,12 +125,11 @@ param=np.array([alpha,beta])
 
 convergence_options={'ftol': 1e-14, 'maxiter': 15000}
 
+e_scf_thresh = 1e-14
 
-for i_zeta in range(1,9):
+for i_zeta in range(1,5):
 
   N_zeta = i_zeta
-
-  e_scf_thresh = 1e-14
 
   result=optimize.minimize(energy,param,method='Nelder-Mead',options=convergence_options)
   param=result.x
@@ -156,6 +150,5 @@ for i_zeta in range(1,9):
     print(zeta[i_zeta])
 
   print('Total SCF energy in hartree:',escf,'\n')
-
 
 
