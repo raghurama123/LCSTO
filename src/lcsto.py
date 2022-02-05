@@ -57,6 +57,7 @@ def energy(param):
     S[i,i] = int_S(zeta[i], zeta[i])
     T[i,i] = int_T(zeta[i], zeta[i], 'true')
     Vne[i,i] = int_Vne(zeta[i], zeta[i], Z, 'true')
+    H[i,i] = T[i,i] + Vne[i,i]
     for j in range(i+1,N_zeta):
       S[i,j] = int_S(zeta[i], zeta[j])
       S[j,i] = S[i,j]
