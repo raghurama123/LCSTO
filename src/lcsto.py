@@ -70,10 +70,18 @@ def energy(param):
       H[j,i] = H[i,j]
 
   for i in range(0,N_zeta):
-    for j in range(0,N_zeta):
+    for j in range(i,N_zeta):
       for k in range(0,N_zeta):
-        for l in range(0,N_zeta):
-          Vee[i,j,k,l] = int_Vee(zeta[i], zeta[j], zeta[k], zeta[l])
+        for l in range(k,N_zeta):
+          Vee_tmp = int_Vee(zeta[i], zeta[j], zeta[k], zeta[l])
+          Vee[i,j,k,l] = Vee_tmp
+          Vee[j,i,k,l] = Vee_tmp
+          Vee[i,j,l,k] = Vee_tmp
+          Vee[j,i,l,k] = Vee_tmp
+          Vee[k,l,i,j] = Vee_tmp
+          Vee[l,k,i,j] = Vee_tmp
+          Vee[k,l,j,i] = Vee_tmp
+          Vee[l,k,j,i] = Vee_tmp
 
   E,V=eigen(S)
 
@@ -151,5 +159,4 @@ for i_zeta in range(1,5):
     print(zeta[i_zeta])
 
   print('Total SCF energy in hartree:',escf,'\n')
-
 
