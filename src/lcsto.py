@@ -71,7 +71,7 @@ def energy(param):
 
   for i in range(0,N_zeta):
     for j in range(i,N_zeta):
-      for k in range(0,N_zeta):
+      for k in range(i,N_zeta):
         for l in range(k,N_zeta):
           Vee_tmp = int_Vee(zeta[i], zeta[j], zeta[k], zeta[l])
           Vee[i,j,k,l] = Vee_tmp
@@ -98,7 +98,7 @@ def energy(param):
 
   i_scf=0
 
-  while d_energy > e_scf_thresh:
+  while d_energy > e_scf_thresh: # begin SCF cycle
 
     i_scf = i_scf + 1
 
@@ -121,7 +121,7 @@ def energy(param):
 
     d_energy = np.abs(enew - eold)
 
-    eold = enew
+    eold = enew # end SCF cycle
 
   return  enew
 
